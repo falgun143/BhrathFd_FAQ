@@ -1,7 +1,7 @@
 import express from "express";
 import { body, validationResult } from "express-validator";
 import { PrismaClient } from "@prisma/client";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import Redis from "ioredis";
 import { translate } from "google-translate-api-x";
 import cors from "cors";
@@ -18,6 +18,16 @@ const prisma = new PrismaClient();
 const redis = new Redis({
   host: process.env.REDIS_HOST || "localhost",
   port: parseInt(process.env.REDIS_PORT || "6379"),
+});
+
+// Clear Redis cache on application start
+redis.on("connect", async () => {
+  try {
+    await redis.flushall();
+    console.log("Redis cache cleared");
+  } catch (error) {
+    console.error("Error clearing Redis cache:", error);
+  }
 });
 
 // User registration
@@ -134,9 +144,10 @@ app.get("/api/faqs", async (req: any, res: any, next: any) => {
   try {
     const lang = typeof req.query.lang === "string" ? req.query.lang : "en";
     const faqs = await prisma.fAQ.findMany();
-    console.log(faqs.length + " faqs found");
+
 
     const translatedFaqs = await getTranslatedFaqs(faqs, lang);
+    console.log(translatedFaqs);
 
     res.json(translatedFaqs);
   } catch (error) {
@@ -185,6 +196,13 @@ app.put(
         where: { id: Number(id) },
         data: { question, answer },
       });
+
+      // Clear the cache for the updated FAQ
+      const keys = await redis.keys(`faq_${id}_*`);
+      if (keys.length > 0) {
+        await redis.del(keys);
+      }
+
       res.json(faq);
     } catch (error) {
       next(error);
@@ -203,3 +221,6 @@ app.delete(
     res.status(204).send();
   }
 );
+app.listen(8000, () => {
+  console.log("Server is running on http://localhost:8000");
+});
