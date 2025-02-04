@@ -1,0 +1,27 @@
+# Use the official Node.js image as the base image
+FROM node:20-alpine    
+
+# Set the working directory
+WORKDIR /app
+
+# Install Redis
+RUN apk add --no-cache redis
+
+# Copy package files and install dependencies
+COPY package*.json ./
+RUN npm install
+
+# Copy the rest of the application code
+COPY . .
+
+# Generate Prisma client
+RUN npx prisma generate
+
+# Build the TypeScript code
+RUN npx tsc
+
+# Expose the ports
+EXPOSE 6379 8000
+
+# Start Redis and the application
+CMD redis-server & node dist/src/index.js

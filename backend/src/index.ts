@@ -130,6 +130,20 @@ const getTranslatedFaqs = async (
     })
   );
 };
+app.get("/api/faqs", async (req: any, res: any, next: any) => {
+  try {
+    const lang = typeof req.query.lang === "string" ? req.query.lang : "en";
+    const faqs = await prisma.fAQ.findMany();
+    console.log(faqs.length + " faqs found");
+
+    const translatedFaqs = await getTranslatedFaqs(faqs, lang);
+
+    res.json(translatedFaqs);
+  } catch (error) {
+    console.error("Error fetching FAQs:", error);
+    next(error);
+  }
+});
 // Ask question (user)
 app.post(
   "/api/faqs",
