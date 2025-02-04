@@ -6,12 +6,13 @@ import { useLogin } from '../context/logincontext';
 const Register: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState<string | null>(null);
+  const [errors, setErrors] = useState<string[]>([]);
   const navigate = useNavigate();
   const { setLogin, setRole } = useLogin();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setErrors([]);
     try {
       const response = await axios.post('http://localhost:8000/api/register', { username, password });
       localStorage.setItem('token', response.data.token);
@@ -20,9 +21,11 @@ const Register: React.FC = () => {
       navigate('/faq');
     } catch (error: any) {
       if (error.response && error.response.data.errors) {
-        setError(error.response.data.errors.map((err: any) => err.msg).join(", "));
+        setErrors(error.response.data.errors.map((err: any) => err.msg));
+      } else if (error.response && error.response.data.message) {
+        setErrors([error.response.data.message]);
       } else {
-        setError("An error occurred. Please try again.");
+        setErrors(["An unexpected error occurred"]);
       }
     }
   };
@@ -32,9 +35,13 @@ const Register: React.FC = () => {
       <div className="flex items-center justify-center min-h-screen">
         <div className="w-full max-w-md p-8 space-y-6 bg-white dark:bg-gray-800 rounded shadow-md">
           <h2 className="text-2xl font-bold text-center">Register</h2>
-          {error && (
+          {errors.length > 0 && (
             <div className="mb-4 p-4 text-red-700 bg-red-100 rounded">
-              {"Username already exists"}
+              {errors.map((error, index) => (
+                <p key={index} style={{ color: "red" }}>
+                  {error}
+                </p>
+              ))}
             </div>
           )}
           <form onSubmit={handleSubmit} className="space-y-4">

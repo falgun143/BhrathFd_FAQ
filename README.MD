@@ -66,7 +66,7 @@ https://github-production-user-asset-6210df.s3.amazonaws.com/105922142/409458289
    docker run -p 8000:8000 bhrathfd
    ```
 
-##### 2nd Way. 🛠️ Normal Setup for backend
+##### 2nd Way. 🛠️ Normal Setup for backend (Might Give redis TCP connection error)
 
 1. **Go to backend dir:**
 

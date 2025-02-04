@@ -34,8 +34,12 @@ redis.on("connect", async () => {
 app.post(
   "/api/register",
   [
-    body("username").isLength({ min: 3 }),
-    body("password").isLength({ min: 6 }),
+    body("username")
+      .isLength({ min: 3 })
+      .withMessage("Username must be at least 3 characters long"),
+    body("password")
+      .isLength({ min: 6 })
+      .withMessage("Password must be at least 6 characters long"),
   ],
   async (req: any, res: any) => {
     const errors = validationResult(req);
@@ -180,7 +184,7 @@ app.post(
   }
 );
 
-//  update (admin)
+//  update (Done by admin)
 app.put(
   "/api/faqs/:id",
   authenticateJWT,
@@ -208,7 +212,7 @@ app.put(
   }
 );
 
-// delete  (admin)
+// delete  (Done by admin)
 app.delete(
   "/api/faqs/:id",
   authenticateJWT,
@@ -219,6 +223,22 @@ app.delete(
     res.status(204).send();
   }
 );
+
+// Admin registration
+app.post("/api/create-admin", async (req: any, res: any) => {
+  const { username, password } = req.body;
+  const existingUser = await prisma.user.findUnique({ where: { username } });
+  if (existingUser) {
+    return res.status(400).json({ message: "Username already exists" });
+  }
+
+  const hashedPassword = await bcrypt.hash(password, 10);
+  const data = { username, password: hashedPassword, role: "admin" };
+  const user = await prisma.user.create({ data });
+  const token = jwt.sign(data, SECRET_KEY, { expiresIn: "24h" });
+  res.json({ token });
+});
+
 app.listen(8000, () => {
   console.log("Server is running on http://localhost:8000");
 });
