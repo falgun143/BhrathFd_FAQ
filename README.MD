@@ -5,15 +5,17 @@
 
 ## 🛠️ Tech Stack
 
-- **TypeScript**: Typed superset of JavaScript
-- **Node.js**: JavaScript runtime
-- **Express**: Web framework for Node.js (Backend)
-- **SuperBase**: Postgres database
-- **Prisma**: ORM for database management
-- **Redis**: In-memory data structure store for caching
-- **Google-Translate API-X**: Translation service
-- **React+Vite**: Frontend
+- **TypeScript** : Typed superset of JavaScript
+- **Node.js** : JavaScript runtime
+- **Express** : Web framework for Node.js (Backend)
+- **SuperBase** : Postgres database
+- **Prisma** : ORM for database management
+- **Redis** : In-memory data structure store for caching
+- **Google-Translate API-X** : Translation service
+- **React + Vite** : Frontend
 - **ContextAPI**: For Context Management
+- **Express Validator**: For Input Validation
+
 
 ## 🎬 Demo Video
 
