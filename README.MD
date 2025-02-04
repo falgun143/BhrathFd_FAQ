@@ -15,6 +15,10 @@
 - **React+Vite**: Frontend
 - **ContextAPI**: For Context Management
 
+## 🎬 Demo Video
+
+https://github-production-user-asset-6210df.s3.amazonaws.com/105922142/409458289-16780718-f4a9-4e3c-aad7-b8a41d71155b.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20250204%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250204T081010Z&X-Amz-Expires=300&X-Amz-Signature=9129a5d282b0b71a01804263bf8cb9b639730da73ef4138cd9d2c95ee033a16c&X-Amz-SignedHeaders=host
+
 ## 🚀 Quick Start
 
 ### FrontEnd Setup
@@ -85,10 +89,6 @@
    ```bash
    npm run dev
    ```
-
-## 🎬 Demo Video
-
-https://github-production-user-asset-6210df.s3.amazonaws.com/105922142/409458289-16780718-f4a9-4e3c-aad7-b8a41d71155b.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20250204%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250204T081010Z&X-Amz-Expires=300&X-Amz-Signature=9129a5d282b0b71a01804263bf8cb9b639730da73ef4138cd9d2c95ee033a16c&X-Amz-SignedHeaders=host
 
 <div style="display: flex; align-items: center;">
   <h2>Testing through postman</h2>
