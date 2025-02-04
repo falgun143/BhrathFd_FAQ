@@ -28,7 +28,7 @@ https://github-production-user-asset-6210df.s3.amazonaws.com/105922142/409458289
 1. **Clone the repository:**
 
    ```bash
-   git clone
+   git clone https://github.com/falgun143/BhrathFd_FAQ.git
    cd BhrathFd_FAQ
    ```
 
