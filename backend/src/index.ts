@@ -145,9 +145,7 @@ app.get("/api/faqs", async (req: any, res: any, next: any) => {
     const lang = typeof req.query.lang === "string" ? req.query.lang : "en";
     const faqs = await prisma.fAQ.findMany();
 
-
     const translatedFaqs = await getTranslatedFaqs(faqs, lang);
-    console.log(translatedFaqs);
 
     res.json(translatedFaqs);
   } catch (error) {
