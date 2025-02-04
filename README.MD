@@ -2,6 +2,13 @@
   <img src="./frontend/public/bhrathfd_logo.png" alt="Logo" width="40" height="40">
   <h1 style="margin-left: 10px;">BhrathFd Backend Assignment</h1>
 </div>
+## Credentials 
+###Admin
+Username: admin
+Password: falgun
+### User
+Username: user
+Password: falgun
 
 ## 🛠️ Tech Stack
 
